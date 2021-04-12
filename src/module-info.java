@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author bimbe
+ *
+ */
+module dollarsBankCoreJavaAppVl {
+}
