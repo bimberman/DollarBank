@@ -1,6 +1,6 @@
-package com.cognixia.jumplus.view;
+package com.cognixia.utility;
 
-public class AccountView {
+public class ConsolePrinterUtility {
 	public static void welcome() {
 		System.out.println( "\n"
 			   + "+---------------------------+\n"
@@ -9,8 +9,7 @@ public class AccountView {
 			   + "1. Create New Account\n"
 			   + "2. Login\n"
 			   + "3. Exit\n"
-			   + "Press # at anytime to return to the previous menu\n\n"
-			   + "Enter your choice(1, 2, or 3):");
+			   + "\nEnter your choice(1, 2, or 3):");
 	}
 	
 	public static void main() {
@@ -18,8 +17,7 @@ public class AccountView {
 			   + "1. Create New Account"
 			   + "2. Login"
 			   + "3. Exit\n\n"
-			   + "Press # at anytime to return to the previous menu\n\n"
-			   + "Enter your choice(1, 2, or 3):");
+			   + "\nEnter your choice(1, 2, or 3):");
 	}
 	
 	public static void goodbye() {
@@ -71,8 +69,16 @@ public class AccountView {
 		System.out.println("\nWelcome " + name);
 	}
 	
+	public static void unsuccessfulLogin() {
+		System.out.println("\nLogin unsuccessful. Please check your credentials and try again.");
+	}
+	
 	public static void noValidSelection() {
 		System.out.println("\nPlease select a valid option from the menu above!");
+	}
+	
+	public static void successfulAccountCreation(String customer) {
+		System.out.println("\n" + customer + "created successfully");
 	}
 	
 	public static void invalidInput(String inputName) {
@@ -80,7 +86,7 @@ public class AccountView {
 	}
 	
 	public static void invalidCredentials() {
-		System.out.println("Invalid Credentials. Try Again!");
+		System.out.println("Invalid Credentials. Please try Again.");
 	}
 	
 	public static void invalidCredentialsMax() {
@@ -98,7 +104,64 @@ public class AccountView {
 			   + "4. View 5 Recent Transactions\n"
 			   + "5. Display Customer Information\n"
 			   + "6. Sign Out\n"
-			   + "Press # at anytime to return to the previous menu\n\n"
-			   + "Enter your choice(1, 2, 3, 4, 5, or 6):");
+			   + "\nEnter your choice(1, 2, 3, 4, 5, or 6):");
+	}
+	
+	public static void depositAmount(int step) {
+		switch(step) {
+			case 1: System.out.println("\n"
+									 + "+---------+\n"
+									 + "| Deposit |\n"
+									 + "+---------+\n"
+									 + "Please eneter your deposit amount:"); 
+					break;
+			case 2: System.out.println("Add a description:");
+					break;
+			default: System.out.println("Invalid step");
+		}	
+	}
+	
+	public static void printDepositTransaction(double amount) {
+			System.out.println("\n$" + amount + " was deposited into your account!");
+	}
+	
+	public static void withdrawAmount(int step) {
+		switch(step) {
+			case 1: System.out.println("\n"
+									 + "+----------+\n"
+									 + "| Withdraw |\n"
+									 + "+----------+\n"
+									 + "Please eneter your withdrawal amount:"); 
+					break;
+			case 2: System.out.println("Add a description:");
+					break;
+			default: System.out.println("Invalid step");
+		}	
+	}
+	
+	public static void printWithdrawTransaction(double amount) {
+			System.out.println("\n$" + amount + " was withdrawn from your account!");
+	}
+
+	public static void transferAmount(int step) {
+		switch(step) {
+			case 1: System.out.println("\n"
+									 + "+----------+\n"
+									 + "| transfer |\n"
+									 + "+----------+\n"
+									 + "Please eneter your transfer amount:"); 
+					break;
+			case 2: System.out.println("Add a description:");
+					break;
+			default: System.out.println("Invalid step");
+		}	
+	}
+	
+	public static void printTransferTransaction(double amount) {
+			System.out.println("\n$" + amount + " was transfered from your account!");
+	}
+
+	public static void printLastFiveTransaction() {
+		System.out.println("\nLast Five Transactions:\n");
 	}
 }

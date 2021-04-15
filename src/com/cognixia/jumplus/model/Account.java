@@ -1,90 +1,74 @@
 package com.cognixia.jumplus.model;
 
-public class Account {
-	private long id;
-	
-	private String name;
-	private String address;
-	private String phoneNumber; 
-	private String userId;
-	private String password;
-	private double balance;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-	public Account() {
-		this(-1, "N/A", "N/A", "N/A", "N/A", "N/A", 0.0);
-	}
+import com.cognixia.utility.AccountType;
+
+public class Account {
+	private int id;
+	private double balance;
+	private AccountType type;
+	private List<Transaction> transactions;
 	
-	public Account(long id, String name, String address, String phoneNumber, String userId, String password,
-			double balance) {
+	public Account(int id, String strType) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.address = address;
-		this.phoneNumber = phoneNumber;
-		this.userId = userId;
-		this.password = password;
-		this.balance = balance;
+		this.balance = 0.0;
+		this.type = AccountType.type(strType);
+		transactions = new ArrayList<Transaction>();
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public double getBalance() {
-		return balance;
+		return transactions.stream()
+						   .mapToDouble(transaction -> transaction.getAmount())
+						   .sum();
 	}
 
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 
+	public AccountType getType() {
+		return type;
+	}
+
+	public void setType(AccountType type) {
+		this.type = type;
+	}
+
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+	
+	public List<Transaction> getLastFiveTransactions() {
+		return transactions.subList(Math.max(transactions.size() - 5, 0), transactions.size());
+	}
+	
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+	
+	public int getNewTransactionId() {
+		return transactions.size();
+	}
+
+	public void addTransaction(Transaction transaction) {
+		this.balance += transaction.getAmount();
+		this.transactions.add(transaction);
+	}
+
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", name=" + name + ", address=" + address + ", phoneNumber=" + phoneNumber
-				+ ", userId=" + userId + ", password=" + password + ", balance=" + balance + "]";
+		return "\nAccount [id=" + id + ", balance=" + balance + ", type=" + type + "],\ntransactions in the account:" + transactions.stream().map(Object::toString).collect(Collectors.joining(","));
 	}
 }
